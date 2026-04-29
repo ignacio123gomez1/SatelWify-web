@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satelwify | Tecnología Satelital</title>
+    <style>
+        :root { 
+            --negro: #0a0a0a; 
+            --rojo: #ff0000; 
+            --oro: #ffd700;
+            --blanco: #ffffff;
+            --gris: #1a1a1a;
+        }
+        
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--negro); margin: 0; color: var(--blanco); }
+
+        header { 
+            background: linear-gradient(180deg, #330000 0%, var(--negro) 100%);
+            padding: 60px 20px; text-align: center; border-bottom: 2px solid var(--rojo);
+        }
+
+        .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 40px 20px; gap: 30px; }
+
+        /* Estilo de la Antena (Imagen) */
+        .antenna-img {
+            width: 100%; height: 180px;
+            background: linear-gradient(45deg, #222, #333);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+
+        /* Dibujo Simbolizado de Antena Starlink */
+        .starlink-shape {
+            width: 120px; height: 80px;
+            background: #e0e0e0; border-radius: 5px;
+            transform: rotateX(45deg);
+            box-shadow: 0 10px 20px rgba(255,0,0,0.2);
+            position: relative;
+        }
+        .starlink-shape::after {
+            content: ''; position: absolute; bottom: -40px; left: 55px;
+            width: 10px; height: 50px; background: #888;
+        }
+
+        /* Tarjeta */
+        .card { 
+            background: var(--gris); border-radius: 20px; width: 300px; 
+            overflow: hidden; border: 1px solid #333; transition: 0.4s;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--rojo); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
+
+        .card-elite { border: 2px solid var(--oro) !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); }
+        .card-elite .starlink-shape { background: var(--oro); box-shadow: 0 0 20px var(--oro); }
+
+        .card-info { padding: 20px; text-align: center; }
+        .price { font-size: 2em; font-weight: bold; margin-bottom: 10px; }
+        
+        .btn-buy { 
+            background: var(--rojo); color: white; border: none; 
+            width: 100%; padding: 15px; font-weight: bold; border-radius: 10px;
+            cursor: pointer; text-transform: uppercase; margin-top: 15px;
+        }
+        .btn-elite { background: var(--oro); color: black; }
+
+        /* Notificaciones */
+        #toast {
+            position: fixed; bottom: 20px; left: 20px; background: white; color: black;
+            padding: 15px; border-radius: 10px; display: none; z-index: 3000;
+            border-left: 5px solid var(--rojo); animation: slide 0.5s;
+        }
+        @keyframes slide { from {transform: translateX(-100%);} to {transform: translateX(0);} }
+
+        .whatsapp-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #25d366;
+            color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="letter-spacing: 8px; text-shadow: 0 0 15px var(--rojo);">SATELWIFY</h1>
+    <p>CONECTIVIDAD SATELITAL & RENDIMIENTO FINANCIERO</p>
+</header>
+
+<div class="container">
+    <!-- EQUIPO ÉLITE -->
+    <div class="card card-elite">
+        <div style="background:var(--rojo); text-align:center; padding:5px; font-weight:bold; font-size:0.8em;">OFERTA LIMITADA</div>
+        <div class="antenna-img"><div class="starlink-shape"></div></div>
+        <div class="card-info">
+            <h3 style="color:var(--oro)">ELITE SATELITAL</h3>
+            <div class="price">100,000 Bs</div>
+            <p>Retorno: <strong>2,500 Bs / Día</strong></p>
+            <p>Plazo: <strong>90 Días</strong></p>
+            <button class="btn-buy btn-elite">ADQUIRIR ÉLITE</button>
+        </div>
+    </div>
+
+    <!-- EQUIPOS 1-5 -->
+    <script>
+        const eqs = [
+            {n: "Antena V.1", p: "6,000", g: "150"},
+            {n: "Antena V2", p: "12,000", g: "300"},
+            {n: "Antena V3", p: "18,000", g: "450"},
+            {n: "Antena V4", p: "24,000", g: "600"},
+            {n: "Antena V5", p: "30,000", g: "800"}
+        ];
+
+        eqs.forEach(item => {
+            document.write(`
+                <div class="card">
+                    <div class="antenna-img"><div class="starlink-shape" style="background:#666"></div></div>
+                    <div class="card-info">
+                        <h3>${item.n}</h3>
+                        <div class="price">${item.p} Bs</div>
+                        <p>Ganancia: <strong>${item.g} Bs / Día</strong></p>
+                        <button class="btn-buy">INVERTIR</button>
+                    </div>
+                </div>
+            `);
+        });
+    </script>
+</div>
+
+<div id="toast">
+    <strong>Usuario***</strong> acaba de activar una <br><span id="toast-item" style="color:red"></span>
+</div>
+
+<a href="https://wa.me/TU_LINK" class="whatsapp-btn">💬 SOPORTE VIP</a>
+
+<script>
+    // Sistema de Notificaciones
+    setInterval(() => {
+        const toast = document.getElementById('toast');
+        const items = ["Antena V5", "Elite Satelital", "Antena V4"];
+        document.getElementById('toast-item').innerText = items[Math.floor(Math.random()*items.length)];
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }, 10000);
+</script>
+
+</body>
+</html>
